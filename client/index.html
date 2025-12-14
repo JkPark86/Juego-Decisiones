@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Leyenda de la Valentía Heroica</title>
+    
+    <style>
+        /* --- AJUSTES GLOBALES PARA EL CONTROL DE SCROLL Y FONDO --- */
+        html, body {
+            /* Fuerza a que el cuerpo y el HTML ocupen el 100% de la ventana */
+            height: 100%; 
+            margin: 0;
+            padding: 0;
+            /* ¡CLAVE!: Esto evita el scroll vertical u horizontal en la página */
+            overflow: hidden; 
+            
+            font-family: monospace, sans-serif;
+            background-color: #000;
+            color: #0f0;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL (Para centrado vertical y horizontal) --- */
+        .container {
+            height: 100%; 
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px; 
+            
+            /* Flexbox para centrar el contenido verticalmente */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            text-align: left; 
+        }
+        
+        /* Aseguramos que las pantallas internas no excedan el contenedor */
+        .screen {
+            max-height: 100%;
+            /* Permite scroll solo dentro de la pantalla si el contenido es muy grande */
+            overflow-y: auto; 
+            width: 100%; 
+            padding: 10px;
+        }
+
+        /* --- ESTILOS DE COMPONENTES --- */
+        button {
+            background-color: #050;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 8px 15px;
+            margin: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        button:hover {
+            background-color: #0a0;
+            color: #000;
+        }
+        input[type="text"] {
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 5px;
+            margin-bottom: 15px;
+            width: 90%;
+            box-sizing: border-box;
+            font-family: monospace, sans-serif;
+        }
+        
+        /* Estilos de voz y mensajes */
+        .demon-voice {
+            color: #f00;
+            font-style: italic;
+        }
+        .constellation-voice {
+            color: #0ff;
+            font-style: italic;
+        }
+        .warning-text {
+            color: #ff0;
+            font-weight: bold;
+        }
+        .fail-message {
+            color: #f00;
+            font-weight: bold;
+        }
+        .success-message {
+            color: #0f0;
+            font-weight: bold;
+        }
+        .final-title {
+            color: #fff;
+            background-color: #f00;
+            padding: 5px;
+            text-align: center;
+        }
+        #decision-buttons {
+            margin-top: 20px;
+        }
+        #decision-buttons button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        #game-status {
+            text-align: center;
+            margin-top: 20px;
+            border-top: 1px solid #0f0;
+            padding-top: 10px;
+        }
+
+        /* --- ESTILOS DE PANTALLAS --- */
+        #main-menu, #start-screen {
+             text-align: center;
+        }
+
+        /* --- ESTILOS ESPECÍFICOS PARA CRÉDITOS --- */
+        #credits-screen {
+            max-width: 650px; 
+            width: 90%;
+            margin: 20px auto; 
+            text-align: left; 
+        }
+        #credits-screen h2 {
+            text-align: center;
+        }
+        
+        /* Modificación para alinear los nombres en los créditos */
+        .nombre-secundario {
+            display: inline-block;
+            margin-left: 200px; /* Ajuste la distancia para la alineación */
+        }
+        #credits-screen p {
+            margin: 15px 0; 
+        }
+        
+    </style>
+    </head>
+<body>
+    <audio id="audio-menu" src="menu.mp3" loop volume="0.1"></audio>
+    <audio id="audio-tj" src="tj.mp3" loop volume="0.1"></audio>
+    <audio id="audio-bf" src="BF.mp3" loop volume="0.1"></audio>
+
+    <div class="container">
+        
+        <div id="main-menu" class="screen">
+            <h1>La Leyenda de la Valentía Heroica</h1>
+            <p>¡¡¡Inicia tu aventura ahora!!!</p>
+            <div id="menu-buttons" style="text-align: center;">
+                <button id="start-button">Comenzar Aventura</button>
+                <button id="credits-button">Créditos del Juego</button>
+            </div>
+        </div>
+        
+        <div id="start-screen" class="screen" style="display: none;">
+            
+            <h2>ESCRIBE EL NOMBRE DE TU HEROE</h2>
+            <p style="text-align: left;">
+                <span class="constellation-voice"></span> "Bienvenido, alma resucitada. Antes de que te enfrentes al mal 
+                cósmico de nuevo, necesitamos algunos datos básicos. El papeleo es crucial, incluso 
+                en la no-vida."
+            </p>
+            <p style="text-align: left;" class="warning-text">
+                Por favor, ingresa el nombre de tu Héroe. 
+                
+            </p>
+            <input type="text" id="hero-name-input" placeholder="Nombre (ej. Valiente Guerrero)">
+            <button id="start-game-button">Comenzar Partida</button>
+        </div>
+
+        <div id="credits-screen" class="screen" style="display: none;">
+            <h2> CRÉDITOS </h2>
+            
+            <p>
+                Diseño y Concepto Original: Flores Navarrete Danna Paola<br>
+                <span class="nombre-secundario">Huerta Macias Luis Israel</span><br>
+                <span class="nombre-secundario">Lemus Huerta Guadalupe</span><br>
+                <span class="nombre-secundario">Salazar Ambrosio Marisol</span>
+            </p>
+            
+            <p>
+                Historia y Narrativa: Flores Navarrete Danna Paola<br>
+                <span class="nombre-secundario">Huerta Macias Luis Israel</span><br>
+                <span class="nombre-secundario">Lemus Huerta Guadalupe</span><br>
+                <span class="nombre-secundario">Salazar Ambrosio Marisol</span>
+            </p>
+            
+            <p>
+                Implementación Backend: Flores Navarrete Danna Paola<br>
+                <span class="nombre-secundario">Huerta Macias Luis Israel</span>
+            </p>
+            
+            <p>
+                Desarrollo Frontend: Salazar Ambrosio Marisol<br>
+                <span class="nombre-secundario">Lemus Huerta Guadalupe</span>
+            </p>
+
+            <button id="back-to-menu-button">Volver al Menú Principal</button>
+        </div>
+
+        <div id="game-screen" class="screen" style="display: none;">
+            <div id="narrative-text"></div>
+            <div id="decision-buttons"></div>
+            <div id="game-status">Puntos de Valentía: 0. Vidas Extra: 0.</div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
