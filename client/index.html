@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Leyenda de la Valentía Heroica</title>
+    
+    <style>
+        /* --- AJUSTES GLOBALES Y RESET --- */
+        html, body {
+            height: 100%; 
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+            font-family: monospace, sans-serif;
+            background-color: #000;
+            color: #0f0; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- MARCO GRIS PRINCIPAL (main-wrapper) --- */
+        #main-wrapper {
+            width: 90vw; 
+            max-width: 1000px;
+            height: 90vh;
+            max-height: 800px;
+            background-color: #333333;
+            border: 5px solid #555;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- CONTENEDOR DE IMAGEN (background-container) --- */
+        #background-container {
+            flex-grow: 1; 
+            width: 100%;
+            position: relative;
+            background-color: #111;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 60%; 
+            display: flex; 
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        /* --- CONSOLA INFERIOR (game-console) --- */
+        #game-console {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.85); 
+            border-top: 2px solid #00ff00; 
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); 
+            padding: 15px;
+            box-sizing: border-box;
+            max-height: 40%; 
+            overflow-y: auto;
+        }
+        
+        /* --- ESTILOS DE COMPONENTES --- */
+        button {
+            background-color: #050;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 8px 15px;
+            margin: 5px 0; 
+            cursor: pointer;
+            display: block; 
+            width: 100%;
+            text-align: left;
+        }
+        button:hover {
+            background-color: #0a0;
+            color: #000;
+        }
+
+        /* --- BOTÓN DE INTERFAZ --- */
+        #toggle-console-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: auto;
+            text-align: center;
+            padding: 5px 10px;
+            z-index: 1000;
+            background-color: rgba(0, 50, 0, 0.7);
+            border: 1px solid #0f0;
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        /* --- TÍTULO DE ESCENA --- */
+        #scene-title, #scene-title-game, #credits-screen h2 {
+            color: #00ff00; 
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #050; 
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        /* --- ESTILOS DE CRÉDITOS (CORREGIDOS) --- */
+        #credits-content-wrapper {
+            max-height: 150px; 
+            overflow-y: auto; 
+            padding-right: 15px; 
+            margin-bottom: 15px;
+        }
+        #credits-screen p {
+            margin-bottom: 15px; 
+            border-left: none; 
+            padding-left: 0;
+            font-weight: normal; 
+        }
+        .nombre-secundario { 
+            display: block; 
+            color: inherit;
+            font-size: 1em;
+            /* Indentación para que se vea como en la imagen */
+            margin-left: 30px; 
+            font-weight: normal;
+        }
+        
+    </style>
+</head>
+<body>
+    <audio id="audio-menu" src="assets/audio/menu.mp3" loop volume="0.1"></audio>
+    <audio id="audio-tj" src="assets/audio/tj.mp3" loop volume="0.1"></audio>
+    <audio id="audio-bf" src="assets/audio/BF.mp3" loop volume="0.1"></audio>
+    <audio id="audio-comedy" src="assets/audio/final-comedy.mp3" loop volume="0.2"></audio>
+    <div id="main-wrapper"> 
+        
+        <div id="background-container"> 
+            
+            <button id="toggle-console-button" style="display: none;">
+                [ Ocultar Interfaz ]
+            </button>
+            
+            <div id="game-console">
+                
+                <div id="main-menu" class="screen">
+                    <h1 id="scene-title" style="border: none; margin-bottom: 20px;">LA LEYENDA DE LA VALENTÍA HEROICA</h1>
+                    <p style="text-align: center;">¡¡¡Inicia tu aventura ahora!!!</p>
+                    <div id="menu-buttons" style="text-align: center; margin-top: 20px;">
+                        <button id="start-button">Comenzar Aventura</button>
+                        <button id="credits-button">Créditos del Juego</button>
+                    </div>
+                </div>
+                
+                <div id="start-screen" class="screen" style="display: none;">
+                    <h2 id="scene-title">ESCRIBE EL NOMBRE DE TU HEROE</h2>
+                    <div id="narrative-text-start">
+                        <p style="text-align: left;">
+                            <span class="constellation-voice"></span> "Bienvenido, alma resucitada..."
+                        </p>
+                        <p style="text-align: left;" class="warning-text">
+                            Por favor, ingresa el nombre de tu Héroe. 
+                        </p>
+                    </div>
+                    <input type="text" id="hero-name-input" placeholder="Nombre (ej. Valiente Guerrero)">
+                    <button id="start-game-button">Comenzar Partida</button>
+                </div>
+
+                <div id="credits-screen" class="screen" style="display: none;">
+                    <h2 id="scene-title">CRÉDITOS DEL PROYECTO</h2> 
+                    
+                    <div id="credits-content-wrapper">
+                        
+                        <p>
+                            Diseño y Concepto Original: Flores Navarrete Danna Paola<br>
+                            <span class="nombre-secundario">Huerta Macias Luis Israel</span>
+                            <span class="nombre-secundario">Lemus Huerta Guadalupe</span>
+                            <span class="nombre-secundario">Salazar Ambrosio Marisol</span>
+                        </p>
+                        
+                        <p>
+                            Historia y Narrativa: Flores Navarrete Danna Paola<br>
+                            <span class="nombre-secundario">Huerta Macias Luis Israel</span>
+                            <span class="nombre-secundario">Lemus Huerta Guadalupe</span>
+                            <span class="nombre-secundario">Salazar Ambrosio Marisol</span>
+                        </p>
+                        
+                        <p>
+                            Implementación Backend: Flores Navarrete Danna Paola<br>
+                            <span class="nombre-secundario">Huerta Macias Luis Israel</span>
+                        </p>
+                        
+                        <p>
+                            Desarrollo Frontend: Salazar Ambrosio Marisol<br>
+                            <span class="nombre-secundario">Lemus Huerta Guadalupe</span>
+                        </p>
+                        </div>
+                    
+                    <button id="back-to-menu-button">Volver al Menú Principal</button>
+                </div>
+
+                <div id="game-screen" class="screen" style="display: none;">
+                    <h2 id="scene-title-game"></h2> 
+                    <div id="narrative-text-game"></div> 
+                    <div id="decision-buttons"></div>
+                    <div id="game-status-game">Puntos de Valentía: 0. Vidas Extra: 0.</div> 
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
