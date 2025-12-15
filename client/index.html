@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Leyenda de la Valentía Heroica</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <audio id="audio-menu" src="assets/audio/menu.mp3" loop volume="0.1"></audio>
+    <audio id="audio-tj" src="assets/audio/tj.mp3" loop volume="0.1"></audio>
+    <audio id="audio-bf" src="assets/audio/BF.mp3" loop volume="0.1"></audio>
+    <audio id="audio-comedy" src="assets/audio/final-comedy.mp3" loop volume="0.2"></audio> 
+    
+    <div class="container is-fluid main-wrapper">
+        <div class="background-container" id="background-container">
+            
+            <button id="toggle-console-button" class="button is-small" style="display: none;">
+                <span class="icon"><i class="fas fa-eye-slash"></i></span>
+                <span>Ocultar Interfaz</span>
+            </button>
+            
+            <div class="game-console" id="game-console">
+                
+                <div id="main-menu" class="screen">
+                    <div class="has-text-centered">
+                        <h1 class="title is-1 game-title" id="scene-title">LA LEYENDA DE LA VALENTÍA HEROICA</h1> 
+                        <p class="subtitle is-4 has-text-white-ter">¡Inicia tu aventura ahora!</p>
+                    </div>
+                    
+                    <div class="menu-buttons has-text-centered mt-6">
+                        <button id="start-button" class="button is-fullwidth is-large is-primary mb-4">
+                            <span class="icon"><i class="fas fa-play"></i></span>
+                            <span>Comenzar Aventura</span>
+                        </button>
+                        <button id="credits-button" class="button is-fullwidth is-large is-dark">
+                            <span class="icon"><i class="fas fa-star"></i></span>
+                            <span>Créditos del Juego</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="start-screen" class="screen" style="display: none;">
+                    <h2 class="title is-3 scene-title" id="scene-title">ESCRIBE EL NOMBRE DE TU HÉROE</h2>
+                    
+                    <div id="narrative-text-start" class="narrative-text-start mb-4">
+                        <p class="constellation-voice">
+                            <span class="icon"><i class="fas fa-quote-left"></i></span> "Bienvenido, alma resucitada..."
+                        </p>
+                        <p class="warning-text">
+                            <span class="icon"><i class="fas fa-exclamation-triangle"></i></span> Por favor, ingresa el nombre de tu Héroe.
+                        </p>
+                    </div>
+                    
+                    <div class="field">
+                        <div class="control has-icons-left">
+                            <input class="input is-medium" type="text" id="hero-name-input" placeholder="Ej: Valiente Guerrero">
+                            <span class="icon is-left"><i class="fas fa-user"></i></span>
+                        </div>
+                    </div>
+                    
+                    <button id="start-game-button" class="button is-fullwidth is-success is-medium mt-4">
+                        <span class="icon"><i class="fas fa-dragon"></i></span>
+                        <span>Comenzar Partida</span>
+                    </button>
+                </div>
+
+                <div id="credits-screen" class="screen" style="display: none;">
+                    <h2 class="title is-3 scene-title" id="scene-title">CRÉDITOS DEL PROYECTO</h2>
+                    
+                    <div id="credits-content-wrapper" class="credits-content-wrapper">
+                        
+                        <div class="credit-item">
+                            <h4 class="title is-5 main-name">Diseño y Concepto Original</h4>
+                            <p>Flores Navarrete Danna Paola</p>
+                            <div class="secondary-names">
+                                <p><span class="icon"><i class="fas fa-user"></i></span> <span class="nombre-secundario">Huerta Macias Luis Israel</span></p>
+                                <p><span class="icon"><i class="fas fa-user"></i></span> <span class="nombre-secundario">Lemus Huerta Guadalupe</span></p>
+                                <p><span class="icon"><i class="fas fa-user"></i></span> <span class="nombre-secundario">Salazar Ambrosio Marisol</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="credit-item">
+                            <h4 class="title is-5 main-name">Historia y Narrativa</h4>
+                            <p>Flores Navarrete Danna Paola</p>
+                            <div class="secondary-names">
+                                <p><span class="icon"><i class="fas fa-user"></i></span> <span class="nombre-secundario">Huerta Macias Luis Israel</span></p>
+                                <p><span class="icon"><i class="fas fa-user"></i></span> <span class="nombre-secundario">Lemus Huerta Guadalupe</span></p>
+                                <p><span class="icon"><i class="fas fa-user"></i></span> <span class="nombre-secundario">Salazar Ambrosio Marisol</span></p>
+                            </div>
+                        </div>
+
+                         <div class="credit-item">
+                            <h4 class="title is-5 main-name">Implementación Backend</h4>
+                            <p>Flores Navarrete Danna Paola</p>
+                            <div class="secondary-names">
+                                <p><span class="icon"><i class="fas fa-user"></i></span> <span class="nombre-secundario">Huerta Macias Luis Israel</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="credit-item">
+                            <h4 class="title is-5 main-name">Desarrollo Frontend</h4>
+                            <p>Salazar Ambrosio Marisol</p>
+                            <div class="secondary-names">
+                                <p><span class="icon"><i class="fas fa-user"></i></span> <span class="nombre-secundario">Lemus Huerta Guadalupe</span></p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <button id="back-to-menu-button" class="button is-fullwidth is-info is-medium mt-4">
+                        <span class="icon"><i class="fas fa-arrow-left"></i></span>
+                        <span>Volver al Menú Principal</span>
+                    </button>
+                </div>
+
+                <div id="game-screen" class="screen" style="display: none;">
+                    
+                    <h2 id="scene-title-game" class="title is-4 scene-title"></h2>
+                    
+                    <div id="game-status-game" class="game-status notification is-small mb-4">
+                        Puntos de Valentía: 0. Vidas Extra: 0.
+                    </div>
+                    
+                    <div id="narrative-text-game" class="narrative-text content mb-4 has-text-white-ter"></div>
+                    
+                    <div id="decision-buttons" class="decision-buttons buttons is-grouped is-grouped-multiline is-fullwidth"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script> 
+</body>
+</html>
